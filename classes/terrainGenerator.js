@@ -36,17 +36,21 @@ class TerrainGenerator {
             this.terrain.push(row);
         }
     }
+    
+    regenerate(){
+        noiseSeed(random(0, 9999));
+        this.baseNoiseOffset = createVector(random(0, 9999), random(0, 9999));
+        this.detailNoiseOffset = createVector(random(0, 9999), random(0, 9999));
+        console.log("hi");
+        this.generate();
+    }
 
     drawTerrain(mouseDown) {
         push();
 
-
         loadPixels();
 
-        if (mouseDown) {
-            this.seaLevel = this.map(mouseX, 0, width, 0, 0.8);
-            console.log(this.seaLevel);
-        }
+        // if(mouseDown) this.seaLevel = fastMap(mouseX, 0, width, 0, 0.8);
 
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
@@ -54,12 +58,12 @@ class TerrainGenerator {
                 let col = [0, 0, 0];
 
                 if (h < this.seaLevel) {
-                    col[1] = this.map(h, -0.5, this.seaLevel, 70, 110);
-                    col[2] = this.map(h, -0.5, this.seaLevel, 120, 200);
+                    col[1] = fastMap(h, -0.5, this.seaLevel, 70, 110);
+                    col[2] = fastMap(h, -0.5, this.seaLevel, 120, 200);
                 }
                 else {
-                    col[0] = this.map(h, this.seaLevel, 1, 60, 100);
-                    col[1] = this.map(h, this.seaLevel, 1, 90, 160);
+                    col[0] = fastMap(h, this.seaLevel, 1, 60, 100);
+                    col[1] = fastMap(h, this.seaLevel, 1, 90, 160);
                 }
 
                 // loop over
@@ -75,16 +79,7 @@ class TerrainGenerator {
         pop();
     }
 
-    map(val, valMin, valMax, resMin, resMax) {
-        let valRange = valMax - valMin;
-        let valPercent = val / valRange;
-
-        let resRange = resMax - resMin;
-        let res = resMin + resRange * valPercent;
-
-        if(res < resMin) res = resMin;
-        else if(res > resMax) res = resMax;
-
-        return res;
+    updateParams(seaLevel){
+        this.seaLevel = seaLevel;
     }
 }
