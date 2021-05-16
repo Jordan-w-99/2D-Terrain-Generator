@@ -28,8 +28,22 @@ function setup()
 
 function draw()
 {   
-    // Update Terrain Params from sliders
+    // Update Terrain
     TG.updateParams(seaLevelSlider.value());
+
+    // Handle Movement
+    if(keyIsDown(UP_ARROW)){
+        TG.move("u");
+    }
+    if(keyIsDown(DOWN_ARROW)){
+        TG.move("d");
+    }
+    if(keyIsDown(LEFT_ARROW)){
+        TG.move("l");
+    }
+    if(keyIsDown(RIGHT_ARROW)){
+        TG.move("r");
+    }
 
     // Draw terrain
     TG.drawTerrain(mouseIsPressed);
