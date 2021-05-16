@@ -7,7 +7,7 @@ class TerrainGenerator {
         this.baseNoiseInc = 0.007;
         this.detailNoiseOffset = createVector(random(0, 9999), random(0, 9999));
         this.detailNoiseInc = 0.01;
-        this.seaLevel = 0.4;
+        this.seaLevel = 0.15;
 
         this.posOffset = createVector(0, 0);
     }
@@ -21,7 +21,16 @@ class TerrainGenerator {
             for (let j = 0; j < this.width; j++) {
                 let base = noise(this.baseNoiseOffset.x + this.baseNoiseInc * j, this.baseNoiseOffset.y + this.baseNoiseInc * i);
                 let detail = noise(this.detailNoiseOffset.x + this.detailNoiseInc * j, this.detailNoiseOffset.y + this.detailNoiseInc * i) / 10;
-                row.push(base + detail);
+
+                // Alpha mask for creating islands
+                let a = 1;
+                let d = dist(this.width / 2, this.height / 2, j, i);
+                let r = (2/3) * this.width;
+                if (d < r) {
+                    a = d / r;
+                }
+
+                row.push(base + detail - a);
             }
 
             this.terrain.push(row);
@@ -34,8 +43,9 @@ class TerrainGenerator {
 
         loadPixels();
 
-        if(mouseDown){
-            this.seaLevel = this.map(mouseX, 0, width, 0.2, 0.8);
+        if (mouseDown) {
+            this.seaLevel = this.map(mouseX, 0, width, 0, 0.8);
+            console.log(this.seaLevel);
         }
 
         for (let y = 0; y < this.height; y++) {
@@ -44,8 +54,8 @@ class TerrainGenerator {
                 let col = [0, 0, 0];
 
                 if (h < this.seaLevel) {
-                    col[1] = this.map(h, 0, this.seaLevel, 70, 110);
-                    col[2] = this.map(h, 0, this.seaLevel, 120, 200);
+                    col[1] = this.map(h, -0.5, this.seaLevel, 70, 110);
+                    col[2] = this.map(h, -0.5, this.seaLevel, 120, 200);
                 }
                 else {
                     col[0] = this.map(h, this.seaLevel, 1, 60, 100);
@@ -65,13 +75,16 @@ class TerrainGenerator {
         pop();
     }
 
-    map(val, valMin, valMax, resMin, resMax){
+    map(val, valMin, valMax, resMin, resMax) {
         let valRange = valMax - valMin;
         let valPercent = val / valRange;
-    
+
         let resRange = resMax - resMin;
         let res = resMin + resRange * valPercent;
-    
+
+        if(res < resMin) res = resMin;
+        else if(res > resMax) res = resMax;
+
         return res;
     }
 }
