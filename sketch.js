@@ -9,7 +9,6 @@ function setup()
 {
 	// Canvas Setup
     createCanvas(800, 800);
-    background(0);
 
     // Terrain Gen setup
     TG = new TerrainGenerator(width, height);
@@ -20,7 +19,7 @@ function setup()
     fps.id("fps");
 
     // GUI setup
-    seaLevelSlider = createSlider(0, 0.8, 0.25, 0.0001);
+    seaLevelSlider = createSlider(0.0001, 0.8, 0.25, 0.0001);
 
     regenerateButton = createButton("Regenerate");
     regenerateButton.mousePressed(regenerate);
@@ -28,6 +27,8 @@ function setup()
 
 function draw()
 {   
+    background(0, 90, 160);
+
     // Update Terrain
     TG.updateParams(seaLevelSlider.value());
 
