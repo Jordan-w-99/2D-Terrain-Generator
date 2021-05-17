@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<title>Terrain_Generator</title>
@@ -10,6 +11,23 @@
 </head>
 
 <body>
+	<div class="app-container">
+		<div id="canvas-container"></div>
+		<div id="controls-container">
+			<div class="control" id="regen-button-container">
+			</div>
+			
+			<div class="control" id="fps-display">
+				<label for="fps">FPS:</label>
+			</div>
+
+			<div class="control" id="sea-level-control">
+				<label for="sea-level-slider">Sea Level</label>
+			</div>
+
+		</div>
+	</div>
+
 	<script src="classes/fastUtils.js"></script>
 	<script src="classes/perlin.js"></script>
 	<script src="classes/terrainGenerator.js"></script>

@@ -1,5 +1,6 @@
 let TG;
 let fps;
+let canvas;
 
 // GUI
 let seaLevelSlider;
@@ -8,7 +9,9 @@ let regenerateButton;
 function setup() 
 {
 	// Canvas Setup
-    createCanvas(800, 800);
+    canvas = createCanvas(800, 800);
+    canvas.id("terrain-canvas");
+    canvas.parent("canvas-container");
 
     // Terrain Gen setup
     TG = new TerrainGenerator(width, height);
@@ -17,11 +20,17 @@ function setup()
     // Fps display Setup   
     fps = createElement("p", "");
     fps.id("fps");
+    fps.parent("fps-display");
 
     // GUI setup
-    seaLevelSlider = createSlider(0.0001, 0.8, 0.25, 0.0001);
+    seaLevelSlider = createSlider(0.0001, 0.75, 0.25, 0.0001);
+    seaLevelSlider.id("sea-level-slider");
+    seaLevelSlider.parent("sea-level-control");
+    document.getElementById("sea-level-slider").setAttribute("name", "sea-level-slider");
 
     regenerateButton = createButton("Regenerate");
+    regenerateButton.id("regen-button");
+    regenerateButton.parent("regen-button-container");
     regenerateButton.mousePressed(regenerate);
 }
 
@@ -50,7 +59,7 @@ function draw()
     TG.drawTerrain(mouseIsPressed);
 
     // Update FPS display
-    document.getElementById("fps").innerText = frameRate();
+    if(frameCount % 10 == 0) document.getElementById("fps").innerText = floor(frameRate());
 }
 
 function regenerate(){

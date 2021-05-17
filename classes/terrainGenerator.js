@@ -58,6 +58,8 @@ class TerrainGenerator {
                 let h = this.terrain[y][x];
                 let col = [0, 0, 0];
 
+
+
                 if (h < this.seaLevel) {
                     col[1] = fastMap(h, 0, this.seaLevel, 90, 110);
                     col[2] = fastMap(h, 0, this.seaLevel, 160, 200);
