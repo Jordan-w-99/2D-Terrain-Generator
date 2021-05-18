@@ -5,7 +5,8 @@ body{
 
 .app-container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
+    justify-content: center;
     align-items: center;
     padding: 20px;
 }
@@ -19,6 +20,7 @@ body{
     padding: 10px 20px;
     border-radius: 5px;
     border: 2px solid black;
+    margin-right: 20px;
 }
 
 .control{

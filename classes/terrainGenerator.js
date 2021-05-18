@@ -96,7 +96,8 @@ class TerrainGenerator {
         else if (dir == "r") this.posOffset.x--;
     }
 
-    updateParams(seaLevel) {
+    updateParams(seaLevel, beachLevel) {
         this.seaLevel = seaLevel;
+        this.beachLevel = beachLevel;
     }
 }
