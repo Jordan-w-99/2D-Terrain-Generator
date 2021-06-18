@@ -1,6 +1,17 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#page-title{
+    width: 100%;
+    text-align: center;
+}
+
+#page-footer{
+    width: 100%;
+    text-align: center;
 }
 
 .app-container{
@@ -21,6 +32,7 @@ body{
     border-radius: 5px;
     border: 2px solid black;
     margin-right: 20px;
+    align-self: baseline;
 }
 
 .control{
